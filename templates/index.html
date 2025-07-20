@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+        <script type="module" src="static/scripts/index.js"></script>
+        <title>Class Schedule</title>
+        <style>
+        body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background-color: #f9fafe;
+                color: #333;
+        }
+
+                    .modal-overlay {
+                        display: none;
+                        position: fixed;
+                        top: 0; left: 0;
+                        width: 100vw;
+                        height: 100vh;
+                        background: rgba(0, 0, 0, 0.4);
+                        z-index: 1000;
+                        justify-content: center;
+                        align-items: center;
+                    
+                  }
+
+                .modal-dialog {
+                    background: #ffffff;
+                    border-radius: 12px;
+                    padding: 24px 28px;
+                    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+                    max-width: 420px;
+                    width: 90%;
+                    text-align: center;
+                }
+
+                .modal-title {
+                    margin: 0 0 16px 0;
+                    font-size: 20px;
+                    font-weight: 600;
+                    color: #1f2937; /* slate-800 */
+                }
+
+                .modal-select {
+                    width: 100%;
+                    height: 160px;
+                    padding: 8px;
+                    border-radius: 6px;
+                    border: 1px solid #d1d5db; /* gray-300 */
+                    font-size: 14px;
+                    outline: none;
+                    background-color: #f9fafb;
+                    color: #111827; /* slate-900 */
+                }
+
+                .modal-actions {
+                    display: flex;
+                    justify-content: center;
+                    gap: 12px;
+                    margin-top: 16px;
+                }
+
+                .modal-btn {
+                    padding: 8px 16px;
+                    font-size: 14px;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    font-weight: 500;
+                    transition: all 0.2s ease;
+                    border: none;
+                }
+
+                .modal-btn-primary {
+                    background-color: #2563eb; /* blue-600 */
+                    color: #ffffff;
+                }
+
+                .modal-btn-primary:hover {
+                    background-color: #1d4ed8; /* blue-700 */
+                }
+
+                .modal-btn-secondary {
+                    background-color: #e5e7eb; /* gray-200 */
+                    color: #1f2937; /* slate-800 */
+                }
+
+                .modal-btn-secondary:hover {
+                    background-color: #d1d5db; /* gray-300 */
+                }
+
+
+                .container {
+                    width: 100%;
+                    text-align: center;
+                    padding-top: 20px;
+                }
+
+                @media screen and (min-width: 1024px) {
+                    .container {
+                        width: 50%;
+                        align-items: flex-start;
+                        padding: 20px;
+                    }
+                }
+
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin: 20px 0;
+                    border-radius: 8px;
+                    overflow: hidden;
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+                }
+
+                th, td {
+                    padding: 12px 10px;
+                    text-align: center;
+                }
+
+                th {
+                    background-color: #4C6EF5; /* Soft Indigo */
+                    color: white;
+                    font-weight: 500;
+                    font-size: 14px;
+                }
+
+                tr:nth-child(even) {
+                    background-color: #EDF3FF; /* Soft blue */
+                }
+
+                tr:nth-child(odd) {
+                    background-color: #ffffff;
+                }
+
+                .cancelled {
+                    background-color: #ffe4e6; /* Soft red-pink */
+                    color: #b91c1c; /* Muted red */
+                    font-weight: 600;
+                    letter-spacing: 0.3px;
+                }
+
+                .lunch-row {
+                    background-color: #fffbe6; /* Pale yellow */
+                    font-weight: 500;
+                    font-style: italic;
+                }
+
+                .schedule_date_title {
+                    font-size: 18px;
+                    font-weight: 600;
+                    color: #3b3b3b;
+                }
+
+                .class_schedule_container {
+                    display: block;
+                    padding: 2%;
+                    align-items: center;
+                    text-align: center;
+                }
+
+                @media screen and (min-width: 1024px) {
+                    .class_schedule_container {
+                        display: flex;
+                        align-items: flex-start;
+                    }
+                }
+
+                .title_header {
+                    color: #1d4ed8; /* Stronger blue */
+                    font-size: 24px;
+                    font-weight: 700;
+                    padding: 2%;
+                    width: 100%;
+                    text-align: center;
+                }
+
+                th, td {
+                    border-right: 1px solid #e0e7ff; /* subtle vertical separator */
+                }
+
+                th:last-child, td:last-child {
+                    border-right: none; /* avoid extra line at the end */
+                }
+
+        </style>
+    </head>
+
+    <body>
+
+        <div>
+            <div class="title_header"> PGP 28 Class Schedule</div>
+
+            <!-- Subject Filter Controls -->
+            <div style="text-align:center; margin: 20px 0;">
+                <button onclick="openSubjectDialog()" style="background: #4C6EF5; color: white; padding: 8px 16px; border: none; border-radius: 4px;">
+                   Configure my Subjects
+                </button>
+            </div>
+
+            <!-- Modal Dialog -->
+        <div class="modal-overlay" #subjectDialog id="subjectDialog">
+                <div class="modal-dialog">
+                    <h3 class="modal-title">Select Your Subjects</h3>
+                    <select id="subjectSelect" class="modal-select" multiple>
+                    <!-- Options populated by JS -->
+                    </select>
+                    <div class="modal-actions">
+                    <button class="modal-btn modal-btn-primary" onclick="saveSubjects()">Save</button>
+                    <button class="modal-btn modal-btn-secondary" onclick="closeSubjectDialog()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="class_schedule_container">
+                <div class="container">
+                    <div class="schedule_date_title">Class Schedule for {{ today }}</div>
+                    {% if schedule %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>D1</th>
+                                <th>D2</th>
+                                <th>D3</th>
+                                <th>D4</th>
+                                <th>E3</th>
+                                <th>E4</th>
+                                <th>E1</th>
+                                <th>E2</th>
+                            </tr>
+                        </thead>
+
+                    
+                    <tbody>
+                            {% for row in schedule %}
+                            <tr>
+                                {% for entity in row %}
+                                <td class="{% if entity.cancelled %}cancelled{% endif %}">
+                                    {{ entity.value }}
+                                </td>
+                                {% endfor %}
+                            </tr>
+
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+                    {% else %}
+                    <p>No classes today.</p>
+                    {% endif %}
+                </div>
+
+                <div class="container">
+                    <div class="schedule_date_title">Class Schedule for {{ tomorrow }}</div>
+                    {% if tomorrow_schedule %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>D1</th>
+                                <th>D2</th>
+                                <th>D3</th>
+                                <th>D4</th>
+                                <th>E3</th>
+                                <th>E4</th>
+                                <th>E1</th>
+                                <th>E2</th>
+                            </tr>
+                        </thead>
+
+                        
+                    <tbody>
+                            {% for row in tomorrow_schedule %}
+                            <tr>
+                                {% for entity in row %}
+                                <td class="{% if entity.cancelled %}cancelled{% endif %}">
+                                    {{ entity.value }}
+                                </td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+                    {% else %}
+                    <p>No classes tomorrow.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
+
