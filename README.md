@@ -1,2 +1,2 @@
-# timetable_2_iimk
+# timetable_backend
 contains code of iimk_timetable
