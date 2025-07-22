@@ -1,11 +1,9 @@
+setuptools>=42
+wheel
+
 aniso8601==7.0.0
 async-timeout==4.0.3
 Babel==2.14.0
-gspread
-Flask
-gunicorn
-firebase-admin
-python-dotenv
 beautifulsoup4==4.12.3
 CacheControl==0.14.0
 cachelib==0.9.0
@@ -46,7 +44,6 @@ google-cloud-tasks==2.16.1
 google-crc32c==1.5.0
 google-resumable-media==2.7.0
 googleapis-common-protos==1.63.0
-GoogleAppEngineCloudStorageClient==1.9.22.1
 graphene==2.1.9
 graphql-core==2.3.2
 graphql-relay==2.0.1
@@ -67,7 +64,6 @@ joblib==1.1.0
 lxml==5.2.1
 Markdown==3.6
 MarkupSafe==2.1.1
-mrs-mapreduce==0.9
 msgpack==1.0.8
 multidict==6.0.5
 networkx==3.3
@@ -96,6 +92,7 @@ PyJWT==2.8.0
 pymemcache==4.0.0
 pyparsing==3.1.2
 python-dateutil==2.8.2
+python-dotenv
 python-http-client==3.3.7
 python-i18n==0.3.9
 pytz==2022.1
