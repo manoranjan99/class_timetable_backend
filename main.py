@@ -141,20 +141,11 @@ def get_schedule_from_sheet():
     # schedule_df.iloc[:, 2:] = schedule_df.iloc[:, 2:].ffill(axis=1)
 
     # Get today's date in the same format as the schedule
-    # today = (datetime.now()).strftime("%A, %B %d, %Y").replace(',', ', ')
-    today = datetime.now().strftime("%A, %d %B, %Y")
+    today = datetime.now().strftime("%A, %d %B, %Y").replace(', 0', ', ')
 
-    # Handling Windows systems where %-d might not be supported
-    if '%-d' not in datetime.now().strftime("%A, %d %B, %Y"):
-        today = datetime.now().strftime("%A, %d %B, %Y")
-
-    # Tomorrow date
-    tomorrow = (datetime.now() + timedelta(days=1)).strftime("%A, %d %B, %Y")
-
-    # Handling Windows systems where %-d might not be supported
-    if '%-d' not in datetime.now().strftime("%A, %d %B, %Y"):
-        tomorrow = (datetime.now()+timedelta(days=1)).strftime("%A, %d %B, %Y")
-
+    # Get tomorrow's date in the same format
+    tomorrow = (datetime.now() + timedelta(days=1)).strftime("%A, %d %B, %Y").replace(', 0', ', ')
+    
     # Filter the dataframe
     today_schedule = get_schedule_from_date(schedule_df, today)
     next_day_schedule = get_schedule_from_date(schedule_df, tomorrow)
