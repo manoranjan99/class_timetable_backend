@@ -100,21 +100,33 @@
     window.saveSubjects = saveSubjects;
     window.resetSubjects = resetSubjects;
 
-    function saveSubjects() {
-        const selected = choicesInstance.getValue(true); // Returns array of selected values
-        closeSubjectDialog();
-        localStorage.setItem("mySubjects", JSON.stringify(selected)); // optional local cache
-        onAuthStateChanged(auth, (user) => {
-        if (user) {
-            const email = user.email;
-            const docRef = doc(db, "user_subjects", email);
-            setDoc(docRef, { subjects: selected }, { merge: true })
-                .then(() => console.log("Subjects saved for", email))
-                .catch((error) => console.error("Error saving subjects:", error));
+    async function saveSubjects() {
+    const selected = choicesInstance.getValue(true); // selected subjects
+    closeSubjectDialog();
+    localStorage.setItem("mySubjects", JSON.stringify(selected));
+
+    const user = auth.currentUser;
+    if (user) {
+        const email = user.email;
+        const docRef = doc(db, "user_subjects", email);
+        try {
+            await setDoc(docRef, { subjects: selected }, { merge: true });
+            console.log("Subjects saved for", email);
+
+            // Now call the backend to update Flask session
+            await fetch("/set_subjects", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ subjects: selected }),
+            });
+
+            // Then reload AFTER everything is done
+            window.location.reload();
+        } catch (error) {
+            console.error("Error saving subjects:", error);
         }
-       });
-         window.location.reload();
     }
+   }
 
     function resetSubjects() {
         localStorage.removeItem("mySubjects");
