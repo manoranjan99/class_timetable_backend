@@ -37,8 +37,14 @@
             document.cookie = `user_email=${email}; path=/`;
             window.location.href = '/';
             })
-            .catch((error) => {
-            console.error("Login failed", error);
-            alert("Login failed. Please try again.");
+           .catch((error) => {
+                    console.error("Login failed", error);
+            
+                    // If popup blocked, fallback to redirect
+                    if (error.code === 'auth/popup-blocked' || error.code === 'auth/popup-closed-by-user') {
+                        signInWithRedirect(auth, provider);
+                    } else {
+                        alert("Login failed. Please try again.");
+            }
             });
    };
