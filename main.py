@@ -20,7 +20,7 @@ app = Flask(__name__)
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "fallback_secret_key")
 
 
-GOOGLE_SHEET_URL='https://docs.google.com/spreadsheets/d/1ohH4NGdRhmoUg4i5BEJ2vTzQ6exQPFRCFN0NmWngISs/edit?usp=sharing'
+GOOGLE_SHEET_URL='https://docs.google.com/spreadsheets/d/1Ws6G9HmVKFQcDzGA7IfxTpAp6P2jKHnXEhJtjuvOOY4/edit?usp=sharing'
 GOOGLE_SHEET_JSON_KEYFILE_PATH='smooth-aura-427907-f1-ec431d988386.json'
 CANCELLED_CELLS = set()
 
