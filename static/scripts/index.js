@@ -21,16 +21,29 @@
     const db = getFirestore(app);
 
     let choicesInstance;
-    const allSubjects = [
-        "GT-A", "GT-B", "GT-C", "IAPM-A", "IAPM-B", "GC-A", "GC-B", "GC-C",
-        "CS-A", "CS-B", "ECOM-A", "ECOM-B", "SOMA-A", "SOMA-B", "MRBDM-A", "MRBDM-B",
-        "NCM-A", "NCM-B", "PM-A", "PM-B", "SCM-A", "SCM-B", "GBS-A", "GBS-B",
-        "IB-A", "IB-B", "FC", "EM", "CBM", "FD", "FIS", "CV", "DPI", "IPR",
-        "LME", "WIS", "AIB", "DA", "MITPS", "CB", "RM", "MBM", "PRICING", "CMO",
-        "SDM", "CA", "LLIR", "LIDA", "MIO", "DAR", "SOM", "EOS", "POSS", "SBRA",
-        "CG", "CONSULTING", "MF(FIN)", "BF(FIN)", "CV(FIN-Core)", "FIS(FIN-Core)",
-        "PF(FIN-Core)", "ST (FIN-Core)", "WTKY (LSM)", "STA (LSM)", "QI (LSM-Core)",
-        "DS (LSM-Core)", "PSM (LSM-Core)"
+     const allSubjects = [
+        "GT-A", "GT-B", 
+        "DVT-A", "DVT-B", 
+        "MOS-A", "MOS-B", 
+        "IMC-A", "IMC-B", 
+        "BS-A", "BS-B", 
+        "SCM-A", "SCM-B", 
+        "MAJVCG-A", "MAJVCG-B", 
+        "IP", "ER", "SCF", "IF", "FRA", "MACR", "FINTECH", 
+        "WTKY", "UPP", "FS", "AIB", "CB", "SDM", "AMMR", "SM", "MMT", 
+        "MEIW", "GWO", "NWE", "LS", "OS", "DAR", 
+        "PM", "CSL", "MFSA", "SI", "MFB", "XCBP", 
+    
+        // Finance electives
+        "ER (FIN)", "HFS (FIN)", "FINT (FIN-Core)", "FRM (FIN-Core)", 
+        "OSD (FIN-Core)", "IF (FIN-Core)",
+    
+        // LSM electives
+        "XCBP (LSM)", "CB (LSM)", "EM (LSM)", "FS (LSM)", 
+    
+        // LSM Core
+        "SOI (LSM-Core)", "MSB (LSM-Core)", "DIBT (LSM-Core)", 
+        "AL (LSM-Core)", "BPP (LSM-Core)"
     ];
 
     document.addEventListener("DOMContentLoaded", function () {
